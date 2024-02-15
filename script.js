@@ -1,6 +1,6 @@
 // Word selection
 // New word = ["Word name", "Hint"]
-var word = [
+let word = [
   ["Hangman", "That game you are playing right now."],
   ["HTML", "Markup language for creating Web pages."],
   ["CSS", "Web page styles"],
@@ -17,7 +17,7 @@ var word = [
   ["Document", "A lot of text in the a file."],
   ["Playground", "There school kids go to."],
   ["Run", "Usain bolt."],
-  ["Code", "var hw = 'Hello World';"],
+  ["Code", "let hw = 'Hello World';"],
   ["Samsung", "A company create Phone, Tv, Monitor, SDD, Memory chip..."],
   ["Super Mario", "A very popular game in Nintendo 64 that have red hat."],
   ["Star", "Super Mario like to get."],
@@ -32,12 +32,12 @@ var word = [
 ];
 
 // Game keyboard
-var tastatur = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+let keyboard = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 // Game memory
-var select = 0;
-var wordLeft = [];
-var fail = 0;
+let select = 0;
+let wordLeft = [];
+let fail = 0;
 
 // Web-page onload
 window.onload = function () {
@@ -46,7 +46,7 @@ window.onload = function () {
     function (e) {
       wH = window.innerHeight;
       tY = e.touches[0].clientY;
-      eL = gId("tastatur");
+      eL = gId("keyboard");
       resY = wH - tY - eL.offsetHeight;
       if (resY < 0) {
         resY = 0;
@@ -69,14 +69,14 @@ function startGame() {
 
 // New game
 function newGame() {
-  clearTastatur();
+  clearKeyboard();
   clearPlayer();
   createWord();
 }
 
 // Clear keyboard
-function clearTastatur() {
-  var e = document.getElementsByClassName("b");
+function clearKeyboard() {
+  let e = document.getElementsByClassName("b");
   for (a = 0; a < e.length; a++) {
     e[a].setAttribute("data", "");
   }
@@ -103,12 +103,12 @@ function clearPlayer() {
 
 // Get new word
 function createWord() {
-  var d = gId("letter");
+  let d = gId("letter");
   d.innerHTML = "";
   select = Math.floor(Math.random() * word.length);
   for (a = 0; a < word[select][0].length; a++) {
-    var x = word[select][0][a].toUpperCase();
-    var b = document.createElement("span");
+    let x = word[select][0][a].toUpperCase();
+    let b = document.createElement("span");
     b.className = "l" + (x == " " ? " ls" : "");
     b.innerHTML = "&nbsp";
     b.id = "l" + a;
@@ -124,12 +124,12 @@ function createWord() {
 
 // Create keyboard
 function createTastur() {
-  var tas = gId("keybord");
+  let tas = gId("keybord");
   tas.innerHTML = "";
-  for (a = 0; a < tastatur.length; a++) {
-    var b = document.createElement("span");
+  for (a = 0; a < keyboard.length; a++) {
+    let b = document.createElement("span");
     b.className = "b";
-    b.innerText = tastatur[a];
+    b.innerText = keyboard[a];
     b.setAttribute("data", "");
     b.onclick = function () {
       bTas(this);
@@ -141,7 +141,7 @@ function createTastur() {
 // Game check, If show next error / game end
 function bTas(a) {
   if (a.getAttribute("data") == "") {
-    var x = isExist(a.innerText);
+    let x = isExist(a.innerText);
     a.setAttribute("data", x);
     if (x) {
       if (wordLeft.length == 0) {
@@ -156,7 +156,7 @@ function bTas(a) {
 // If letter "X" exist
 function isExist(e) {
   e = e.toUpperCase();
-  var x = wordLeft.indexOf(e);
+  let x = wordLeft.indexOf(e);
   if (x != -1) {
     wordLeft.splice(x, 1);
     typeWord(e);
@@ -224,7 +224,7 @@ function typeWord(e) {
 
 // Game result
 function gameEnd(e) {
-  var d = gId("result");
+  let d = gId("result");
   d.setAttribute("data", e);
   if (e) {
     gId("rT").innerText = "You Win!";
